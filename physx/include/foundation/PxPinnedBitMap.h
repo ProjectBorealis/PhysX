@@ -26,39 +26,42 @@
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
 // Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
 
-#ifndef PXG_TGS_DYNAMICS_CONTEXT_H
-#define PXG_TGS_DYNAMICS_CONTEXT_H
+#ifndef PX_PINNED_BITMAP_H
+#define PX_PINNED_BITMAP_H
 
-#include "PxgContext.h"
+#include "foundation/PxBitMap.h"
+#include "foundation/PxPinnedArray.h"
 
+#if !PX_DOXYGEN
 namespace physx
 {
-	namespace Cm
-	{
-		class FlushPool;
-	}
+#endif
 
-	class PxBaseTask;
-
-	class PxsKernelWranglerManager;
-
-	/**
-	\brief A class to represent a GPU dynamics context for the GPU rigid body solver
-	*/
-	class PxgTGSDynamicsContext : public PxgGpuContext
-	{
-		PX_NOCOPY(PxgTGSDynamicsContext)
-
-	public:
-		PxgTGSDynamicsContext(Cm::FlushPool& flushPool, PxsKernelWranglerManager* gpuKernelWrangler, PxCudaContextManager* cudaContextManager, 
-			const PxGpuDynamicsMemoryConfig& config, IG::SimpleIslandManager& islandManager, PxU32 maxNumPartitions, PxU32 maxNumStaticPartitions, bool enableStabilization, bool useEnhancedDeterminism, bool solveArticulationContactLast,
-			PxReal maxBiasCoefficient, PxvSimStats& simStats, PxgHeapMemoryAllocatorManager* heapMemoryManager, bool externalForcesEveryTgsIterationEnabled, PxReal lengthScale, bool enableDirectGPUAPI, PxU64 contextID,
-			bool isResidualReportingEnabled);
-
-		virtual void						destroy();
-
-		virtual PxSolverType::Enum			getSolverType()	const	{ return PxSolverType::eTGS;	}
-	};
+/*!
+Overloaded allocation helper for pinned memory support
+*/
+PX_INLINE void* PxBitMapAlloc(PxPinnedAllocator<PxU32>& a, PxU32 bytes, const char* file, int line, uint32_t* cookie)
+{
+	return a.allocate(bytes, file, line, cookie);
 }
 
+/*!
+Overloaded de-allocation helper for pinned memory support
+*/
+PX_INLINE void PxBitMapDealloc(PxPinnedAllocator<PxU32>& a, void* ptr, uint32_t* cookie)
+{
+	a.deallocate(ptr, cookie);
+}
+
+/*!
+As opposed to PxPinnedArray, PxBitMapPinned has non-pinned allocation fallback, 
+same as PxPinnedArraySafe.
+*/
+typedef PxBitMapBase< PxPinnedAllocator<PxU32> > PxBitMapPinned;
+
+
+#if !PX_DOXYGEN
+} // namespace physx
 #endif
+
+#endif // PX_PINNED_BITMAP_H
