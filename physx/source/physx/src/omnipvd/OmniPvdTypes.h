@@ -394,7 +394,7 @@ OMNI_PVD_CLASS_END              (PxAggregate)
 // PxConstraint
 ////////////////////////////////////////////////////////////////////////////////
 // Just a place holder class to be extended and improved in
-// https://jirasw.nvidia.com/browse/PX-3394
+// PX-3394
 ////////////////////////////////////////////////////////////////////////////////
 OMNI_PVD_CLASS_BEGIN				(PxConstraint)
 OMNI_PVD_CLASS_END					(PxConstraint)

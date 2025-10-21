@@ -932,7 +932,7 @@ void solveVParallelAndWriteBack(SolverIslandParams& params, Cm::SpatialVectorF* 
 				articulationListSize, articCount,
 				articulationListStart,
 				solverDt,
-				false, isTGS,				//isVelIter should be true here(https://nvbugspro.nvidia.com/bug/5385832)
+				false, isTGS,				//isVelIter should be true here(NVBug 5385832)
 				singlePassArticulationConstraintProcessingConfig,
 				0.0f,						
 				biasCoefficient,
