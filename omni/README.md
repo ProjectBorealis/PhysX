@@ -53,7 +53,7 @@ See ``./build.[bat|sh] --help`` for more information.
 ## Usage with IsaacSim
 
 * Check out a tag of the IsaacSim repository according to the following mapping of IsaacSim repository tags to PhysX repository tags:
-    * v5.1.0 - 107.3-physx-5.6.1
+    * v5.1.0 - 107.3-omni-and-physx-5.6.1
     * Fallback to the default branch if the tag is not yet available.
 * Run `python ./tools/isaacsim/setup_and_build.py` with the following arguments:
     * `--isaacsim PATH_TO_REPO`: Specifies the path to your local IsaacSim repository.
